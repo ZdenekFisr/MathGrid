@@ -4,9 +4,6 @@ using System.Windows.Media;
 
 namespace MathGrid
 {
-    /// <summary>
-    /// Interakční logika pro MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         private readonly GameModel game = new GameModel();

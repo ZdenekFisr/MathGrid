@@ -6,9 +6,12 @@ using System.Windows.Media;
 
 namespace MathGrid
 {
-    class GameModel // a class with algortihms for the game; also includes WPF controls
-    {
-        public Random r = new Random();
+    /// <summary>
+    /// Contains methods to generate a math grid and play a game using WPF controls.
+    /// </summary>
+    class GameModel
+    {   
+        private readonly Random r = new Random();
         private const int smallSpace = 2, largeSpace = 4,
             sizeVeryEasy = 98, sizeEasy = 73, sizeMedium = 58, sizeHard = 48, sizeExtreme = 28,
             countVeryEasy = 6, countEasy = 8, countMedium = 10, countHard = 12, countExtreme = 20; // constants needed to generate the grid
@@ -162,10 +165,10 @@ namespace MathGrid
             stateOfBox[x, y] = true;
         }
 
-        public int[,] GenerateNumbers(Difficulty difficulty) // generates a new game grid
+        private int[,] GenerateNumbers(Difficulty difficulty)
         {
             GetSizeAndCount(difficulty, true, out int count);
-            int[,] a = new int[count, count]; // array of numbers that is then translated to the game
+            int[,] a = new int[count, count];
             for (int i = 0; i < count; i++)
             {
                 for (int j = 0; j < count; j++)
@@ -196,7 +199,7 @@ namespace MathGrid
             return a;
         }
 
-        public void SumGame(int[,] gameGrid, out int[] sumRows, out int[] sumColumns) // calculates sums of all rows and columns and returns them
+        private void SumGame(int[,] gameGrid, out int[] sumRows, out int[] sumColumns) // calculates sums of all rows and columns and returns them
         {
             sumRows = new int[gameGrid.GetLength(1) / 2 + 1];
             sumColumns = new int[gameGrid.GetLength(0) / 2 + 1];
@@ -248,7 +251,7 @@ namespace MathGrid
             }
         }
 
-        public bool[,] ChooseNumbers(int[,] gameGrid, double ratioChosen) // chooses which numbers will be visible at the start based on the selected ratio of visible numbers
+        private bool[,] ChooseNumbers(int[,] gameGrid, double ratioChosen) // chooses which numbers will be visible at the start based on the selected ratio of visible numbers
         {
             bool[,] chosenBoxes = new bool[gameGrid.GetLength(0), gameGrid.GetLength(1)];
             int index = 0, chosen = (int)((gameGrid.GetLength(0) / 2 + 1) * (gameGrid.GetLength(1) / 2 + 1) * ratioChosen);
@@ -266,7 +269,7 @@ namespace MathGrid
             return chosenBoxes;
         }
 
-        public void GenerateTable(Canvas canvas, Difficulty difficulty, int[,] gameGrid, int[] sumRows, int[] sumColums, bool[,] chosenBoxes)
+        private void GenerateTable(Canvas canvas, Difficulty difficulty, int[,] gameGrid, int[] sumRows, int[] sumColumns, bool[,] chosenBoxes) // draws a math grid into a given canvas
         {
             GetSizeAndCount(difficulty, false, out int count, out int size);
             selectable = new bool[count - 1, count - 1];
@@ -292,7 +295,7 @@ namespace MathGrid
                     }
                     else if (i == count - 1 && j % 2 == 0) // sums of columns with numbers
                     {
-                        TextBlock textBlock = GenerateTextBlock(sumColums[j / 2].ToString(), size, Brushes.LightBlue);
+                        TextBlock textBlock = GenerateTextBlock(sumColumns[j / 2].ToString(), size, Brushes.LightBlue);
                         canvas.Children.Add(textBlock);
                         Canvas.SetLeft(textBlock, i * (size + smallSpace) + largeSpace);
                         Canvas.SetTop(textBlock, j * (size + smallSpace) + smallSpace);
@@ -382,7 +385,10 @@ namespace MathGrid
             return textBlock;
         }
 
-        public void NewGame(Canvas canvas, Difficulty difficulty, double ratioOfChosenNumbers)
+        /// <summary>
+        /// Calls all the methods needed to create a new game.
+        /// </summary>
+        internal void NewGame(Canvas canvas, Difficulty difficulty, double ratioOfChosenNumbers)
         {
             canvas.Children.Clear();
             GetSizeAndCount(difficulty, false, out int count);
@@ -393,7 +399,30 @@ namespace MathGrid
             GenerateTable(canvas, difficulty, gameGrid, sumRows, sumColumns, chosen);
         }
 
-        public Result EnterNumber(Canvas canvas, Difficulty difficulty, int number)
+        /// <summary>
+        /// Clears all the entered numbers that are not fixed.
+        /// </summary>
+        internal void Reset(Canvas canvas)
+        {
+            foreach (TextBlock textBlock in canvas.Children)
+            {
+                if (textBlock.Foreground == Brushes.Blue) textBlock.Text = "";
+                if (textBlock.Background == Brushes.Yellow) textBlock.Background = Brushes.White;
+            }
+            for (int i = 0; i < entered.GetLength(0); i++)
+            {
+                for (int j = 0; j < entered.GetLength(1); j++)
+                {
+                    entered[j, i] = 0;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Puts a new number inside a game canvas and checks the game.
+        /// </summary>
+        /// <returns>Returns one of three possible outcomes.</returns>
+        internal Result EnterNumber(Canvas canvas, Difficulty difficulty, int number)
         {
             int px, py, size = GetSize(difficulty);
             foreach (TextBlock textBlock in canvas.Children)
@@ -435,7 +464,10 @@ namespace MathGrid
             else return Result.Unfinished;
         }
 
-        public void ChangeBoxWithArrows(Canvas canvas, Difficulty difficulty, Direction direction)
+        /// <summary>
+        /// Moves a selected field one step away from the currently selected one.
+        /// </summary>
+        internal void ChangeBoxWithArrows(Canvas canvas, Difficulty difficulty, Direction direction)
         {
             int px, py, qx, qy;
             bool wantedBox = false;
@@ -478,11 +510,11 @@ namespace MathGrid
             }
         }
 
-        public bool GameCheck(Canvas canvas, Difficulty difficulty)
+        private bool GameCheck(Canvas canvas, Difficulty difficulty) // returns true when the game is filled correctly
         {
             GetSizeAndCount(difficulty, true, out int count, out int size);
             int px, py, indexX = 0, indexY = 0;
-            string rowString = "", columnString = "";
+            string sum1String = "", sum2String = "";
             int[,] gameGrid = new int[count, count];
             int[] sum1 = new int[count + 1];
             int[] sum2 = new int[count + 1];
@@ -515,26 +547,10 @@ namespace MathGrid
                 sum2[indexY] = sumColumns[i];
                 indexY++;
             }
-            for (int i = 0; i < sum1.Length; i++) rowString += sum1[i] + " ";
-            for (int i = 0; i < sum2.Length; i++) columnString += sum2[i] + " ";
-            if (rowString == columnString) return true;
+            for (int i = 0; i < sum1.Length; i++) sum1String += sum1[i] + " ";
+            for (int i = 0; i < sum2.Length; i++) sum2String += sum2[i] + " ";
+            if (sum1String == sum2String) return true;
             else return false;
-        }
-
-        public void Reset(Canvas canvas)
-        {
-            foreach (TextBlock textBlock in canvas.Children)
-            {
-                if (textBlock.Foreground == Brushes.Blue) textBlock.Text = "";
-                if (textBlock.Background == Brushes.Yellow) textBlock.Background = Brushes.White;
-            }
-            for (int i = 0; i < entered.GetLength(0); i++)
-            {
-                for (int j = 0; j < entered.GetLength(1); j++)
-                {
-                    entered[j, i] = 0;
-                }
-            }
         }
 
         private void GetSizeAndCount(Difficulty difficulty, bool lowerCountByOne, out int count)
