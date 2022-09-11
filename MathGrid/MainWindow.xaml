@@ -5,43 +5,43 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="Math Grid" Height="700" Width="800" KeyDown="Window_KeyDown" ResizeMode="CanMinimize" Icon="icon.ico">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="40"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="308"/>
-            <ColumnDefinition Width="308"/>
-        </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0" Grid.ColumnSpan="3" Orientation="Vertical" Margin="10,10,0,0" Grid.RowSpan="7">
-	        <TextBlock Text="Ratio of visible numbers:" Margin="0,0,0,5" Focusable="False"/>
-	        <Slider Name="ratioSlider" Minimum="0" Maximum="1" TickFrequency="0.05" Value="0.35" TickPlacement="BottomRight" Margin="0,0,0,10" IsSnapToTickEnabled="True" Focusable="False"/>
-	        <RadioButton Name="VeryEasyRadio" Content="Very easy" Margin="0,0,0,5" Focusable="False"/>
-            <RadioButton Name="EasyRadio" Content="Easy" IsChecked="True" Margin="0,0,0,5" Focusable="False"/>
-            <RadioButton Name="MediumRadio" Content="Medium" Margin="0,0,0,5" Focusable="False"/>
-            <RadioButton Name="HardRadio" Content="Hard" Margin="0,0,0,5" Focusable="False"/>
-	        <RadioButton Name="ExtremeRadio" Content="Extreme" Focusable="False"/>
-	    </StackPanel>
-        <Canvas Grid.Column="3" Grid.ColumnSpan="2" Grid.RowSpan="6" Name="gameCanvas" Height="604" Margin="6,20,6,39" Background="Black"/>
-        <TextBlock Grid.Column="3" Grid.Row="5" Grid.ColumnSpan="2" Name="resultTextBlock" Margin="10,10,0,0" Focusable="False"/>
-        <Button Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Name="newGameButton" Click="NewGameButton_Click" Content="New game" Margin="12,5" Focusable="False"/>
-        <Button Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" Name="resetButton" Click="ResetButton_Click" Content="Reset" Margin="12,5" Focusable="False"/>
-        <Button Grid.Column="0" Grid.Row="3" Name="Button1" Content="1" Margin="12,5,0,5" Click="Button1_Click" Focusable="False"/>
-        <Button Grid.Column="1" Grid.Row="3" Name="Button2" Content="2" Margin="6,5" Click="Button2_Click" Focusable="False"/>
-        <Button Grid.Column="2" Grid.Row="3" Name="Button3" Content="3" Margin="0,5,12,5" Click="Button3_Click" Focusable="False"/>
-        <Button Grid.Column="0" Grid.Row="4" Name="Button4" Content="4" Margin="12,5,0,5" Click="Button4_Click" Focusable="False"/>
-        <Button Grid.Column="1" Grid.Row="4" Name="Button5" Content="5" Margin="6,5" Click="Button5_Click" Focusable="False"/>
-        <Button Grid.Column="2" Grid.Row="4" Name="Button6" Content="6" Margin="0,5,12,5" Click="Button6_Click" Focusable="False"/>
-        <Button Grid.Column="0" Grid.Row="5" Name="Button7" Content="7" Margin="12,5,0,15" Click="Button7_Click" Focusable="False"/>
-        <Button Grid.Column="1" Grid.Row="5" Name="Button8" Content="8" Margin="6,5,6,15" Click="Button8_Click" Focusable="False"/>
-        <Button Grid.Column="2" Grid.Row="5" Name="Button9" Content="9" Margin="0,5,12,15" Click="Button9_Click" Focusable="False"/>
-    </Grid>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition/>
+			<RowDefinition Height="30"/>
+			<RowDefinition Height="30"/>
+			<RowDefinition Height="30"/>
+			<RowDefinition Height="30"/>
+			<RowDefinition Height="40"/>
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="*"/>
+			<ColumnDefinition Width="*"/>
+			<ColumnDefinition Width="*"/>
+			<ColumnDefinition Width="308"/>
+			<ColumnDefinition Width="308"/>
+		</Grid.ColumnDefinitions>
+		<StackPanel Grid.Column="0" Grid.ColumnSpan="3" Orientation="Vertical" Margin="10,10,0,0" Grid.RowSpan="7">
+			<TextBlock Text="Ratio of visible numbers:" Margin="0,0,0,5" Focusable="False"/>
+			<Slider Name="ratioSlider" Minimum="0" Maximum="0.95" TickFrequency="0.05" Value="0.35" TickPlacement="BottomRight" Margin="0,0,0,10" IsSnapToTickEnabled="True" Focusable="False"/>
+			<RadioButton Name="VeryEasyRadio" Content="Very easy" Margin="0,0,0,5" Focusable="False"/>
+			<RadioButton Name="EasyRadio" Content="Easy" IsChecked="True" Margin="0,0,0,5" Focusable="False"/>
+			<RadioButton Name="MediumRadio" Content="Medium" Margin="0,0,0,5" Focusable="False"/>
+			<RadioButton Name="HardRadio" Content="Hard" Margin="0,0,0,5" Focusable="False"/>
+			<RadioButton Name="ExtremeRadio" Content="Extreme" Focusable="False"/>
+		</StackPanel>
+		<Canvas Grid.Column="3" Grid.ColumnSpan="2" Grid.RowSpan="6" Name="gameCanvas" Height="604" Margin="6,20,6,39" Background="Black"/>
+		<TextBlock Grid.Column="3" Grid.Row="5" Grid.ColumnSpan="2" Name="resultTextBlock" Margin="10,10,0,0" Focusable="False"/>
+		<Button Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="3" Name="newGameButton" Content="New game" Margin="12,5" Click="NewGameButton_Click" Focusable="False"/>
+		<Button Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="3" Name="resetButton" Content="Reset" Margin="12,5" IsEnabled="False" Click="ResetButton_Click" Focusable="False"/>
+		<Button Grid.Column="0" Grid.Row="3" Name="button1" Content="1" Margin="12,5,0,5" IsEnabled="False" Click="Button1_Click" Focusable="False"/>
+		<Button Grid.Column="1" Grid.Row="3" Name="button2" Content="2" Margin="6,5" IsEnabled="False" Click="Button2_Click" Focusable="False"/>
+		<Button Grid.Column="2" Grid.Row="3" Name="button3" Content="3" Margin="0,5,12,5" IsEnabled="False" Click="Button3_Click" Focusable="False"/>
+		<Button Grid.Column="0" Grid.Row="4" Name="button4" Content="4" Margin="12,5,0,5" IsEnabled="False" Click="Button4_Click" Focusable="False"/>
+		<Button Grid.Column="1" Grid.Row="4" Name="button5" Content="5" Margin="6,5" IsEnabled="False" Click="Button5_Click" Focusable="False"/>
+		<Button Grid.Column="2" Grid.Row="4" Name="button6" Content="6" Margin="0,5,12,5" IsEnabled="False" Click="Button6_Click" Focusable="False"/>
+		<Button Grid.Column="0" Grid.Row="5" Name="button7" Content="7" Margin="12,5,0,15" IsEnabled="False" Click="Button7_Click" Focusable="False"/>
+		<Button Grid.Column="1" Grid.Row="5" Name="button8" Content="8" Margin="6,5,6,15" IsEnabled="False" Click="Button8_Click" Focusable="False"/>
+		<Button Grid.Column="2" Grid.Row="5" Name="button9" Content="9" Margin="0,5,12,15" IsEnabled="False" Click="Button9_Click" Focusable="False"/>
+	</Grid>
 </Window>

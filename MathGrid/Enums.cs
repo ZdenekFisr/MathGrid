@@ -19,8 +19,8 @@
 
 	public enum Result
 	{
+		Unfinished,
 		Success,
 		Fail,
-		Unfinished
 	}
 }
