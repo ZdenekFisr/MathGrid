@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35327.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MathGrid", "MathGrid\MathGrid.csproj", "{5C0E60C1-9980-43F9-A86B-46F9B7938C16}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{9E1D4A68-79CA-4153-8B8F-0951B2ECC4B0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameLogic", "GameLogic\GameLogic.csproj", "{B5B81FD5-AC9C-4056-8E59-79940E98FB19}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5C0E60C1-9980-43F9-A86B-46F9B7938C16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C0E60C1-9980-43F9-A86B-46F9B7938C16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C0E60C1-9980-43F9-A86B-46F9B7938C16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C0E60C1-9980-43F9-A86B-46F9B7938C16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E1D4A68-79CA-4153-8B8F-0951B2ECC4B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E1D4A68-79CA-4153-8B8F-0951B2ECC4B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E1D4A68-79CA-4153-8B8F-0951B2ECC4B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E1D4A68-79CA-4153-8B8F-0951B2ECC4B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5B81FD5-AC9C-4056-8E59-79940E98FB19}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5B81FD5-AC9C-4056-8E59-79940E98FB19}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5B81FD5-AC9C-4056-8E59-79940E98FB19}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5B81FD5-AC9C-4056-8E59-79940E98FB19}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {693DA823-DB7F-47C5-92EE-A392A2B85A45}
+	EndGlobalSection
+EndGlobal
