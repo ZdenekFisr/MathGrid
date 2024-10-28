@@ -13,10 +13,10 @@ namespace GameLogic.Services.MatrixVisibility
         public bool[,] ChooseVisibleNumbers(byte gridSize, double ratioOfVisibleNumbers)
         {
             bool[,] visibleNumbers = new bool[gridSize, gridSize];
-            int numberOfVisibleNumbers = (int)((gridSize + 1) * (gridSize + 1) / 4 * ratioOfVisibleNumbers);
-            int x, y;
+            byte numberOfVisibleNumbers = (byte)((gridSize + 1) * (gridSize + 1) / 4 * ratioOfVisibleNumbers);
+            byte x, y;
 
-            for (int i = 0; i < numberOfVisibleNumbers; i++)
+            for (byte i = 0; i < numberOfVisibleNumbers; i++)
             {
                 do
                 {

@@ -9,15 +9,15 @@
             rowsSum = new short[matrix.GetLength(1) / 2 + 1];
             columnsSum = new short[matrix.GetLength(0) / 2 + 1];
 
-            int index = 0;
-            for (int i = 0; i < matrix.GetLength(0); i += 2)
+            byte index = 0;
+            for (byte i = 0; i < matrix.GetLength(0); i += 2)
             {
                 if (matrix[i, 1] == Constants.MultiplicationRepresentation)
                     rowsSum[index] += (short)(matrix[i, 0] * matrix[i, 2]);
                 else
                     rowsSum[index] += matrix[i, 0];
 
-                for (int j = 2; j < matrix.GetLength(1) - 2; j += 2)
+                for (byte j = 2; j < matrix.GetLength(1) - 2; j += 2)
                 {
                     if (matrix[i, j - 1] == Constants.MultiplicationRepresentation)
                         continue;
@@ -46,14 +46,14 @@
             }
 
             index = 0;
-            for (int j = 0; j < matrix.GetLength(1); j += 2)
+            for (byte j = 0; j < matrix.GetLength(1); j += 2)
             {
                 if (matrix[1, j] == Constants.MultiplicationRepresentation)
                     columnsSum[index] += (short)(matrix[0, j] * matrix[2, j]);
                 else
                     columnsSum[index] += matrix[0, j];
 
-                for (int i = 2; i < matrix.GetLength(0) - 2; i += 2)
+                for (byte i = 2; i < matrix.GetLength(0) - 2; i += 2)
                 {
                     if (matrix[i - 1, j] == Constants.MultiplicationRepresentation)
                         continue;

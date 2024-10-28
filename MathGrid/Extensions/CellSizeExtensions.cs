@@ -1,6 +1,7 @@
-﻿using GameLogic.Enums;
+﻿using GameLogic;
+using GameLogic.Enums;
 
-namespace GameLogic.Extensions
+namespace MathGrid.Extensions
 {
     public static class CellSizeExtensions
     {

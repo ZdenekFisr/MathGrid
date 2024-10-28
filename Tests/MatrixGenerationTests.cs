@@ -33,9 +33,9 @@ namespace Tests
         {
             byte[,] matrix = _serviceProvider.GetRequiredService<IMatrixGenerationService>().GenerateMatrix(difficulty);
 
-            for (int i = 0; i < matrix.GetLength(0); i++)
+            for (byte i = 0; i < matrix.GetLength(0); i++)
             {
-                for (int j = 0; j < matrix.GetLength(1); j++)
+                for (byte j = 0; j < matrix.GetLength(1); j++)
                 {
                     // number cells
                     if (i % 2 == 0 && j % 2 == 0)
@@ -82,7 +82,7 @@ namespace Tests
 
         [TestMethod]
         public void GenerateMatrix_Medium()
-        => PerformGenerateMatrixTest(Difficulty.Medium);
+            => PerformGenerateMatrixTest(Difficulty.Medium);
 
         [TestMethod]
         public void GenerateMatrix_Hard()
@@ -90,6 +90,6 @@ namespace Tests
 
         [TestMethod]
         public void GenerateMatrix_Extreme()
-        => PerformGenerateMatrixTest(Difficulty.Extreme);
+            => PerformGenerateMatrixTest(Difficulty.Extreme);
     }
 }

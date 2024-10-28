@@ -4,6 +4,8 @@ using GameLogic.Extensions;
 using GameLogic.Services.MatrixGeneration;
 using GameLogic.Services.MatrixSum;
 using GameLogic.Services.MatrixVisibility;
+using MathGrid.Enums;
+using MathGrid.Extensions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -23,7 +25,7 @@ namespace MathGrid.Services.Game
         private readonly IMatrixSumService _matrixSumService = matrixSumService;
         private readonly IMatrixVisibilityService _matrixVisibilityService = matrixVisibilityService;
 
-        private int chosenBox;
+        private short chosenBox;
         private byte[,]? enteredNumbers; // array of numbers entered by the player
         private bool[,]? stateOfBox; // serves to de-color a box when selecting a different one
         private bool[,]? editable; // red color of an occupied box
@@ -63,14 +65,14 @@ namespace MathGrid.Services.Game
             SwitchBox(textBlock, Constants.SizeVeryEasy, Constants.CountVeryEasy);
         }
 
-        private void SwitchBox(TextBlock textBlock, int size, int count) // it happens when clicked on a box and only when its color is white
+        private void SwitchBox(TextBlock textBlock, short size, byte count) // it happens when clicked on a box and only when its color is white
         {
             if (editable is null || textBlock.Background != Brushes.White)
                 return;
 
-            int px, py;
-            px = Convert.ToInt32(Canvas.GetLeft(textBlock)) / (size + Constants.SmallSpace);
-            py = Convert.ToInt32(Canvas.GetTop(textBlock)) / (size + Constants.SmallSpace);
+            sbyte px, py;
+            px = GetHorizontalPosition(textBlock, size);
+            py = GetVerticalPosition(textBlock, size);
 
             SwitchStateOfBox(px, py);
 
@@ -81,14 +83,14 @@ namespace MathGrid.Services.Game
             chosenBox = GetChosenBoxNumber(px, py, count);
         }
 
-        private void SwitchFixation(TextBlock textBlock, int size, int count) // changes the fixation of a number - right mouse button click
+        private void SwitchFixation(TextBlock textBlock, short size, byte count) // changes the fixation of a number - right mouse button click
         {
             if (editable is null || (textBlock.Background != Brushes.White && textBlock.Background != Brushes.Yellow))
                 return;
 
-            int px, py;
-            px = Convert.ToInt32(Canvas.GetLeft(textBlock)) / (size + Constants.SmallSpace);
-            py = Convert.ToInt32(Canvas.GetTop(textBlock)) / (size + Constants.SmallSpace);
+            sbyte px, py;
+            px = GetHorizontalPosition(textBlock, size);
+            py = GetVerticalPosition(textBlock, size);
 
             if (!editable[px, py])
             {
@@ -133,8 +135,8 @@ namespace MathGrid.Services.Game
             }
         }
 
-        private int GetChosenBoxNumber(int px, int py, int count)
-            => py + px * count;
+        private short GetChosenBoxNumber(short px, short py, byte count)
+            => (short)(py + px * count);
 
 
         private void Canvas_MouseDownExtreme(object sender, MouseButtonEventArgs e)
@@ -174,7 +176,7 @@ namespace MathGrid.Services.Game
 
         private void UnselectBox(Canvas canvas) // when canvas is clicked on, the yellow or red box turns white
         {
-            int i = 0;
+            short i = 0;
             foreach (TextBlock textBlock in canvas.Children)
             {
                 if ((textBlock.Background == Brushes.Yellow || textBlock.Background == Brushes.Red) && i != chosenBox)
@@ -221,14 +223,14 @@ namespace MathGrid.Services.Game
             SwitchFixation(textBlock, Constants.SizeVeryEasy, Constants.CountVeryEasy);
         }
 
-        private void SwitchStateOfBox(int x, int y) // sets states of all boxes to false and then sets the demanded one to true
+        private void SwitchStateOfBox(short x, short y) // sets states of all boxes to false and then sets the demanded one to true
         {
             if (stateOfBox is null)
                 return;
 
-            for (int i = 0; i < stateOfBox.GetLength(0); i++)
+            for (byte i = 0; i < stateOfBox.GetLength(0); i++)
             {
-                for (int j = 0; j < stateOfBox.GetLength(1); j++)
+                for (byte j = 0; j < stateOfBox.GetLength(1); j++)
                 {
                     stateOfBox[i, j] = false;
                 }
@@ -238,13 +240,14 @@ namespace MathGrid.Services.Game
 
         private void GenerateTable(Canvas canvas, Difficulty difficulty, byte[,] gameGrid, short[] sumRows, short[] sumColumns, bool[,] chosenBoxes) // draws a math grid into a given canvas
         {
-            int count = difficulty.ToGridSize(), size = difficulty.ToCellSize();
+            byte count = difficulty.ToGridSize();
+            short size = difficulty.ToCellSize();
             editable = new bool[count - 1, count - 1];
             stateOfBox = new bool[count - 1, count - 1];
 
-            for (int i = 0; i < count; i++)
+            for (byte i = 0; i < count; i++)
             {
-                for (int j = 0; j < count; j++)
+                for (byte j = 0; j < count; j++)
                 {
                     if (i == count - 1 && j == count - 1)
                         break; // box in the right down corner gets skipped
@@ -343,7 +346,7 @@ namespace MathGrid.Services.Game
             }
         }
 
-        private TextBlock GenerateTextBlock(string text, int size, Brush background)
+        private TextBlock GenerateTextBlock(string text, short size, Brush background)
         {
             TextBlock textBlock = new()
             {
@@ -394,9 +397,9 @@ namespace MathGrid.Services.Game
                 if (textBlock.Background == Brushes.Yellow)
                     textBlock.Background = Brushes.White;
             }
-            for (int i = 0; i < enteredNumbers.GetLength(0); i++)
+            for (byte i = 0; i < enteredNumbers.GetLength(0); i++)
             {
-                for (int j = 0; j < enteredNumbers.GetLength(1); j++)
+                for (byte j = 0; j < enteredNumbers.GetLength(1); j++)
                 {
                     enteredNumbers[i, j] = 0;
                 }
@@ -415,13 +418,14 @@ namespace MathGrid.Services.Game
             if (enteredNumbers is null)
                 return GameState.Unfinished;
 
-            int px, py, size = difficulty.ToCellSize();
+            sbyte px, py;
+            short size = difficulty.ToCellSize();
             foreach (TextBlock textBlock in canvas.Children)
             {
                 if (textBlock.Background == Brushes.Yellow && (textBlock.Text == string.Empty || textBlock.Foreground == Brushes.Blue))
                 {
-                    px = Convert.ToInt32(Canvas.GetLeft(textBlock)) / (size + Constants.SmallSpace);
-                    py = Convert.ToInt32(Canvas.GetTop(textBlock)) / (size + Constants.SmallSpace);
+                    px = GetHorizontalPosition(textBlock, size);
+                    py = GetVerticalPosition(textBlock, size);
                     if (textBlock.Text == number)
                     {
                         textBlock.Text = string.Empty;
@@ -464,20 +468,21 @@ namespace MathGrid.Services.Game
         /// <param name="direction">Direction enum.</param>
         public void ChangeBoxWithArrows(Canvas canvas, Difficulty difficulty, Direction direction)
         {
-            int px, py, qx, qy, size = difficulty.ToCellSize();
+            sbyte px, py, qx, qy;
+            short size = difficulty.ToCellSize();
             bool wantedBox = false, start = true;
             foreach (TextBlock textBlock in canvas.Children)
             {
                 if (textBlock.Background == Brushes.Yellow || textBlock.Background == Brushes.Red)
                 {
                     start = false;
-                    px = Convert.ToInt32(Canvas.GetLeft(textBlock)) / (size + Constants.SmallSpace);
-                    py = Convert.ToInt32(Canvas.GetTop(textBlock)) / (size + Constants.SmallSpace);
+                    px = GetHorizontalPosition(textBlock, size);
+                    py = GetVerticalPosition(textBlock, size);
 
                     foreach (TextBlock textBlock2 in canvas.Children)
                     {
-                        qx = Convert.ToInt32(Canvas.GetLeft(textBlock2)) / (size + Constants.SmallSpace);
-                        qy = Convert.ToInt32(Canvas.GetTop(textBlock2)) / (size + Constants.SmallSpace);
+                        qx = GetHorizontalPosition(textBlock2, size);
+                        qy = GetVerticalPosition(textBlock2, size);
                         switch (direction)
                         {
                             case Direction.Up:
@@ -521,24 +526,25 @@ namespace MathGrid.Services.Game
 
         private bool GameCheck(Canvas canvas, Difficulty difficulty) // returns true when the game is filled correctly
         {
-            int count = difficulty.ToGridSizeWithoutSums(), size = difficulty.ToCellSize();
-            int px, py, indexX = 0, indexY = 0;
+            byte count = difficulty.ToGridSizeWithoutSums(), indexX = 0, indexY = 0;
+            short size = difficulty.ToCellSize();
+            sbyte px, py;
             string sum1String = string.Empty, sum2String = string.Empty;
             byte[,] gameGrid = new byte[count, count];
-            int[] sum1 = new int[count + 1];
-            int[] sum2 = new int[count + 1];
+            short[] sum1 = new short[count + 1];
+            short[] sum2 = new short[count + 1];
 
             foreach (TextBlock textBlock in canvas.Children)
             {
                 if (textBlock.Background == Brushes.LightBlue && textBlock.Text != string.Empty)
                 {
-                    sum1[indexX] = Convert.ToInt32(textBlock.Text.ToString());
+                    sum1[indexX] = Convert.ToInt16(textBlock.Text.ToString());
                     indexX++;
                 }
                 else if (textBlock.Background != Brushes.LightBlue)
                 {
-                    px = Convert.ToInt32(Canvas.GetLeft(textBlock)) / (size + Constants.SmallSpace);
-                    py = Convert.ToInt32(Canvas.GetTop(textBlock)) / (size + Constants.SmallSpace);
+                    px = GetHorizontalPosition(textBlock, size);
+                    py = GetVerticalPosition(textBlock, size);
 
                     if (textBlock.Text == string.Empty)
                         gameGrid[px, py] = 0;
@@ -554,12 +560,12 @@ namespace MathGrid.Services.Game
             }
 
             _matrixSumService.SumMatrix(gameGrid, out short[] sumRows, out short[] sumColumns);
-            for (int i = 0; i < sumRows.Length; i++)
+            for (byte i = 0; i < sumRows.Length; i++)
             {
                 sum2[indexY] = sumRows[i];
                 indexY++;
             }
-            for (int i = 0; i < sumColumns.Length; i++)
+            for (byte i = 0; i < sumColumns.Length; i++)
             {
                 sum2[indexY] = sumColumns[i];
                 indexY++;
@@ -569,5 +575,11 @@ namespace MathGrid.Services.Game
             sum2String = string.Join(" ", sum2String);
             return sum1String == sum2String;
         }
+
+        private sbyte GetHorizontalPosition(TextBlock textBlock, short cellSize)
+            => (sbyte)(Canvas.GetLeft(textBlock) / (cellSize + Constants.SmallSpace));
+
+        private sbyte GetVerticalPosition(TextBlock textBlock, short cellSize)
+            => (sbyte)(Canvas.GetTop(textBlock) / (cellSize + Constants.SmallSpace));
     }
 }

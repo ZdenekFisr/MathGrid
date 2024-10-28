@@ -3,8 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MathGrid"
+        xmlns:logicEnums="clr-namespace:GameLogic.Enums;assembly=GameLogic"
         mc:Ignorable="d"
         Title="Math Grid" Height="680" Width="800" ResizeMode="CanMinimize" Icon="icon.ico" KeyDown="Window_KeyDown">
+    
     <Window.Resources>
         <Style x:Key="GameSettingStyle" TargetType="FrameworkElement">
             <Setter Property="Margin" Value="0,0,0,5"/>
@@ -15,6 +18,7 @@
             <Setter Property="Focusable" Value="False"/>
         </Style>
     </Window.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -26,14 +30,17 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Vertical" Margin="10">
+            <StackPanel.Resources>
+                <local:EnumToBooleanConverter x:Key="EnumToBooleanConverter"/>
+            </StackPanel.Resources>
             <TextBlock Text="Ratio of visible numbers:" Style="{StaticResource GameSettingStyle}"/>
             <Slider Name="RatioSlider" Minimum="0" Maximum="0.95" TickFrequency="0.05" Value="0.35" TickPlacement="BottomRight" Style="{StaticResource GameSettingStyle}" IsSnapToTickEnabled="True"/>
             <TextBlock Text="Difficulty:" Style="{StaticResource GameSettingStyle}"/>
-            <RadioButton Name="VeryEasyRadioButton" Content="Very easy" Style="{StaticResource GameSettingStyle}"/>
-            <RadioButton Name="EasyRadioButton" Content="Easy" IsChecked="True" Style="{StaticResource GameSettingStyle}"/>
-            <RadioButton Name="MediumRadioButton" Content="Medium" Style="{StaticResource GameSettingStyle}"/>
-            <RadioButton Name="HardRadioButton" Content="Hard" Style="{StaticResource GameSettingStyle}"/>
-            <RadioButton Name="ExtremeRadioButton" Content="Extreme" Style="{StaticResource GameSettingStyle}"/>
+            <RadioButton Name="VeryEasyRadioButton" Content="Very easy" IsChecked="{Binding SelectedDifficulty, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static logicEnums:Difficulty.VeryEasy}}" Style="{StaticResource GameSettingStyle}"/>
+            <RadioButton Name="EasyRadioButton" Content="Easy" IsChecked="{Binding SelectedDifficulty, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static logicEnums:Difficulty.Easy}}" Style="{StaticResource GameSettingStyle}"/>
+            <RadioButton Name="MediumRadioButton" Content="Medium" IsChecked="{Binding SelectedDifficulty, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static logicEnums:Difficulty.Medium}}" Style="{StaticResource GameSettingStyle}"/>
+            <RadioButton Name="HardRadioButton" Content="Hard" IsChecked="{Binding SelectedDifficulty, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static logicEnums:Difficulty.Hard}}" Style="{StaticResource GameSettingStyle}"/>
+            <RadioButton Name="ExtremeRadioButton" Content="Extreme" IsChecked="{Binding SelectedDifficulty, Converter={StaticResource EnumToBooleanConverter}, ConverterParameter={x:Static logicEnums:Difficulty.Extreme}}" Style="{StaticResource GameSettingStyle}"/>
         </StackPanel>
 
         <StackPanel Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Orientation="Vertical" HorizontalAlignment="Left">
