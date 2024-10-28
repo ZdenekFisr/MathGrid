@@ -410,7 +410,7 @@ namespace MathGrid.Services.Game
         /// <param name="difficulty">Difficulty enum.</param>
         /// <param name="number">Entered number.</param>
         /// <returns>Current game state.</returns>
-        public GameState EnterNumber(Canvas canvas, Difficulty difficulty, byte number)
+        public GameState EnterNumber(Canvas canvas, Difficulty difficulty, string number)
         {
             if (enteredNumbers is null)
                 return GameState.Unfinished;
@@ -422,16 +422,16 @@ namespace MathGrid.Services.Game
                 {
                     px = Convert.ToInt32(Canvas.GetLeft(textBlock)) / (size + Constants.SmallSpace);
                     py = Convert.ToInt32(Canvas.GetTop(textBlock)) / (size + Constants.SmallSpace);
-                    if (textBlock.Text == number.ToString())
+                    if (textBlock.Text == number)
                     {
                         textBlock.Text = string.Empty;
                         enteredNumbers[px, py] = 0;
                     }
                     else
                     {
-                        textBlock.Text = number.ToString();
+                        textBlock.Text = number;
                         textBlock.Foreground = Brushes.Blue;
-                        enteredNumbers[px, py] = number;
+                        enteredNumbers[px, py] = byte.Parse(number);
                     }
                     break;
                 }

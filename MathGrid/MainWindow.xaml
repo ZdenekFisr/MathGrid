@@ -58,19 +58,20 @@
             </Grid.ColumnDefinitions>
 
             <Button Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Name="NewGameButton" Content="New game" Style="{StaticResource KeyboardButtonStyle}" Click="NewGameButton_Click"/>
+
             <Button Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="5" Name="ResetButton" Content="Reset" Style="{StaticResource KeyboardButtonStyle}" IsEnabled="False" Click="ResetButton_Click"/>
 
-            <Button Grid.Row="2" Grid.Column="0" Name="Enter1Button" Content="1" Style="{StaticResource KeyboardButtonStyle}" IsEnabled="False" Click="Button1_Click"/>
-            <Button Grid.Row="2" Grid.Column="2" Name="Enter2Button" Content="2" Style="{StaticResource KeyboardButtonStyle}" IsEnabled="False" Click="Button2_Click"/>
-            <Button Grid.Row="2" Grid.Column="4" Name="Enter3Button" Content="3" Style="{StaticResource KeyboardButtonStyle}" IsEnabled="False" Click="Button3_Click"/>
+            <Button Grid.Row="2" Grid.Column="0" Name="Enter1Button" Content="1" Style="{StaticResource KeyboardButtonStyle}" IsEnabled="False" Click="EnterButton_Click"/>
+            <Button Grid.Row="2" Grid.Column="2" Name="Enter2Button" Content="2" Style="{StaticResource KeyboardButtonStyle}" IsEnabled="False" Click="EnterButton_Click"/>
+            <Button Grid.Row="2" Grid.Column="4" Name="Enter3Button" Content="3" Style="{StaticResource KeyboardButtonStyle}" IsEnabled="False" Click="EnterButton_Click"/>
 
-            <Button Grid.Row="3" Grid.Column="0" Name="Enter4Button" Content="4" Style="{StaticResource KeyboardButtonStyle}" IsEnabled="False" Click="Button4_Click"/>
-            <Button Grid.Row="3" Grid.Column="2" Name="Enter5Button" Content="5" Style="{StaticResource KeyboardButtonStyle}" IsEnabled="False" Click="Button5_Click"/>
-            <Button Grid.Row="3" Grid.Column="4" Name="Enter6Button" Content="6" Style="{StaticResource KeyboardButtonStyle}" IsEnabled="False" Click="Button6_Click"/>
+            <Button Grid.Row="3" Grid.Column="0" Name="Enter4Button" Content="4" Style="{StaticResource KeyboardButtonStyle}" IsEnabled="False" Click="EnterButton_Click"/>
+            <Button Grid.Row="3" Grid.Column="2" Name="Enter5Button" Content="5" Style="{StaticResource KeyboardButtonStyle}" IsEnabled="False" Click="EnterButton_Click"/>
+            <Button Grid.Row="3" Grid.Column="4" Name="Enter6Button" Content="6" Style="{StaticResource KeyboardButtonStyle}" IsEnabled="False" Click="EnterButton_Click"/>
 
-            <Button Grid.Row="4" Grid.Column="0" Name="Enter7Button" Content="7" Style="{StaticResource KeyboardButtonStyle}" IsEnabled="False" Click="Button7_Click"/>
-            <Button Grid.Row="4" Grid.Column="2" Name="Enter8Button" Content="8" Style="{StaticResource KeyboardButtonStyle}" IsEnabled="False" Click="Button8_Click"/>
-            <Button Grid.Row="4" Grid.Column="4" Name="Enter9Button" Content="9" Style="{StaticResource KeyboardButtonStyle}" IsEnabled="False" Click="Button9_Click"/>
+            <Button Grid.Row="4" Grid.Column="0" Name="Enter7Button" Content="7" Style="{StaticResource KeyboardButtonStyle}" IsEnabled="False" Click="EnterButton_Click"/>
+            <Button Grid.Row="4" Grid.Column="2" Name="Enter8Button" Content="8" Style="{StaticResource KeyboardButtonStyle}" IsEnabled="False" Click="EnterButton_Click"/>
+            <Button Grid.Row="4" Grid.Column="4" Name="Enter9Button" Content="9" Style="{StaticResource KeyboardButtonStyle}" IsEnabled="False" Click="EnterButton_Click"/>
         </Grid>
     </Grid>
 </Window>
