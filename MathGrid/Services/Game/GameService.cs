@@ -529,7 +529,6 @@ namespace MathGrid.Services.Game
             byte count = difficulty.ToGridSizeWithoutSums(), indexX = 0, indexY = 0;
             short size = difficulty.ToCellSize();
             sbyte px, py;
-            string sum1String = string.Empty, sum2String = string.Empty;
             byte[,] gameGrid = new byte[count, count];
             short[] sum1 = new short[count + 1];
             short[] sum2 = new short[count + 1];
@@ -571,8 +570,8 @@ namespace MathGrid.Services.Game
                 indexY++;
             }
 
-            sum1String = string.Join(" ", sum1String);
-            sum2String = string.Join(" ", sum2String);
+            string sum1String = string.Join(" ", sum1);
+            string sum2String = string.Join(" ", sum2);
             return sum1String == sum2String;
         }
 
