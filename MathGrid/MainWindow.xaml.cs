@@ -78,38 +78,47 @@ namespace MathGrid
             switch (e.Key)
             {
                 case Key.NumPad1:
+                case Key.D1:
                     result = _gameService.EnterNumber(GameCanvas, SelectedDifficulty, "1");
                     ShowResult();
                     break;
                 case Key.NumPad2:
+                case Key.D2:
                     result = _gameService.EnterNumber(GameCanvas, SelectedDifficulty, "2");
                     ShowResult();
                     break;
                 case Key.NumPad3:
+                case Key.D3:
                     result = _gameService.EnterNumber(GameCanvas, SelectedDifficulty, "3");
                     ShowResult();
                     break;
                 case Key.NumPad4:
+                case Key.D4:
                     result = _gameService.EnterNumber(GameCanvas, SelectedDifficulty, "4");
                     ShowResult();
                     break;
                 case Key.NumPad5:
+                case Key.D5:
                     result = _gameService.EnterNumber(GameCanvas, SelectedDifficulty, "5");
                     ShowResult();
                     break;
                 case Key.NumPad6:
+                case Key.D6:
                     result = _gameService.EnterNumber(GameCanvas, SelectedDifficulty, "6");
                     ShowResult();
                     break;
                 case Key.NumPad7:
+                case Key.D7:
                     result = _gameService.EnterNumber(GameCanvas, SelectedDifficulty, "7");
                     ShowResult();
                     break;
                 case Key.NumPad8:
+                case Key.D8:
                     result = _gameService.EnterNumber(GameCanvas, SelectedDifficulty, "8");
                     ShowResult();
                     break;
                 case Key.NumPad9:
+                case Key.D9:
                     result = _gameService.EnterNumber(GameCanvas, SelectedDifficulty, "9");
                     ShowResult();
                     break;
