@@ -163,7 +163,7 @@ namespace MathGrid
 
         private void ChangeDifficulty(sbyte direction)
         {
-            var values = (Difficulty[])Enum.GetValues(typeof(Difficulty));
+            var values = Enum.GetValues<Difficulty>();
             sbyte currentIndex = (sbyte)Array.IndexOf(values, SelectedDifficulty);
             sbyte newIndex = (sbyte)((currentIndex + direction + values.Length) % values.Length);
             SelectedDifficulty = values[newIndex];
